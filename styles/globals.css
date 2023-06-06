@@ -25,4 +25,13 @@
   .linkHover {
     @apply cursor-pointer text-[#e5e5e5] opacity-80 hover:opacity-100
   }
+  .row {
+    @apply h-40 space-y-0.5 md:space-y-4 md:h-[280px] 
+  }
+
+  .skeletonLoading {
+    width: 260px;
+    height: 146px;
+    background-color: rgb(54, 48, 48);
+  }
 }

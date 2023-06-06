@@ -13,13 +13,18 @@ function Banner({ netflixOriginals }: props) {
   const [movies, setMovies] = useState<Movie | null>(null);
 
   useEffect(() => {
-    setMovies(
-      netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)]
-    );
+    setTimeout(() => {
+      setMovies(
+        netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)]
+      );
+    }, 4000);
   }, [netflixOriginals]);
 
   return (
-    <div className="flex flex-col py-16 space-y-2 mb-10 md:justify-end md:space-y-4 lg:h-[85vh] lg:pb-12 ">
+    <>
+    {
+      movies ? (<>
+      <div className="flex flex-col py-16 space-y-2 mb-10 md:justify-end md:space-y-4 lg:h-[85vh] lg:pb-12 ">
       <figure className="absolute top-0 left-0 h-[95vh] w-screen -z-10">
         <img
           src={`${baseUrl}${movies?.backdrop_path || movies?.poster_path}`}
@@ -46,6 +51,11 @@ function Banner({ netflixOriginals }: props) {
         </button>
       </div>
     </div>
+      </>) : <div className="h-20"></div>
+    }
+    
+    </>
+    
   );
 }
 
