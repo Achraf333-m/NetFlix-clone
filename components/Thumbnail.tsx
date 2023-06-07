@@ -20,7 +20,7 @@ useEffect(() => {
     if (thumbnailMount) {
       setThumbnail(image)
     }
-  }, 4000);
+  }, 2000);
   return () => {
     thumbnailMount.current = false
   }

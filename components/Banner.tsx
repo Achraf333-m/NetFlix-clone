@@ -17,7 +17,7 @@ function Banner({ netflixOriginals }: props) {
       setMovies(
         netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)]
       );
-    }, 4000);
+    }, 1000);
   }, [netflixOriginals]);
 
   return (

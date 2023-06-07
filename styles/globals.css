@@ -34,4 +34,8 @@
     height: 146px;
     background-color: rgb(54, 48, 48);
   }
+
+  .input {
+    @apply w-full rounded bg-[#333] px-5 py-3.5 placeholder-[gray] border-none focus:ring-0 focus:bg-[#454545]
+  }
 }
