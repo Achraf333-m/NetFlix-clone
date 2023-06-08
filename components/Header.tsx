@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { FaBell } from "react-icons/fa";
+import Dropdown from "./Dropdown";
 
 function Header() {
 
@@ -27,7 +28,7 @@ function Header() {
 
 
   return (
-    <header className={`${scrolled ? 'bg-black' : 'bg-transparent'}`}>
+    <header className={`${scrolled ? 'bg-[#141414]' : 'bg-transparent'} transition duration-1000 ease-in-out `}>
       <div className="flex items-center space-x-2 md:space-x-10">
         <img
           src="https://rb.gy/ulxxee"
@@ -49,13 +50,10 @@ function Header() {
         <BsSearch className="h-6 w-6 hidden sm:inline" />
         <p className="hidden lg:inline cursor-default">Kids</p>
         <FaBell className="h-6 w-6 hidden" />
-        <Link href="/account">
-          <img
-            src="https://rb.gy/g1pwyx"
-            alt=""
-            className="cursor-pointer rounded"
-          />
-        </Link>
+        {/* <Link href="/account"> */}
+          
+          <Dropdown />
+        {/* </Link> */}
       </div>
     </header>
   );
