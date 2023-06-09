@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: AuthProps) => {
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCreds) => {
         setUser(userCreds.user);
-        router.push("/login");
+        router.push("/");
         setLoading(false);
       })
       .catch((error) => alert(error.message))

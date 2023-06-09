@@ -1,6 +1,7 @@
 import Banner from "@/components/Banner";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Modal from "@/components/Modal";
 import Row from "@/components/Row";
 import useAuth from "@/hooks/useAuth";
 import { Movie } from "@/typings";
@@ -54,13 +55,14 @@ const Home = ({
           <Row title="Documentaries" movies={documentaries} />
         </section>
       </main>
-
+      <Modal />
       <Footer />
     </div>
   );
 };
 
 export default Home;
+
 
 export const getServerSideProps = async () => {
   const [

@@ -80,7 +80,7 @@ function signup() {
           type="submit"
           className="w-full rounded bg-[#e50914] py-3 font-semibold"
         >
-          Sign Up and go to Login!
+            Go to Netflix!
         </button>
       </form>
     </div>

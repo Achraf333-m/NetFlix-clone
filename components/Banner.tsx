@@ -1,9 +1,11 @@
 import { baseUrl } from "@/constants/url";
+import { modalState, movieState } from "@/states/State";
 import { Movie } from "@/typings";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { BsInfoCircle } from "react-icons/bs";
 import { FaPlay } from "react-icons/fa";
+import { useRecoilState } from 'recoil';
 
 interface props {
   netflixOriginals: Movie[];
@@ -11,6 +13,8 @@ interface props {
 
 function Banner({ netflixOriginals }: props) {
   const [movies, setMovies] = useState<Movie | null>(null);
+  const [showModal, setShowModal] = useRecoilState(modalState)
+  const [currentMovie, setCurrentMovie] = useRecoilState(movieState)
 
   useEffect(() => {
     setTimeout(() => {
@@ -45,7 +49,7 @@ function Banner({ netflixOriginals }: props) {
           <FaPlay className="w-4 h-4 text-black md:h-7 md:w-7" />
           Play
         </button>
-        <button className="bannerButton bg-[gray]/80">
+        <button className="bannerButton bg-[gray]/80" onClick={() => {setShowModal(true); setCurrentMovie(movies)}}>
           More Info
           <BsInfoCircle className="w-4 h-4 text-black md:h-7 md:w-7" />
         </button>
