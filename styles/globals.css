@@ -39,6 +39,6 @@
     @apply w-full rounded bg-[#333] px-5 py-3.5 placeholder-[gray] border-none focus:ring-0 focus:bg-[#454545]
   }
   .buttonModal {
-    @apply flex h-11 w-11 bg-[#2a2a2a]/60 border-[gray] rounded-full hover:bg-white/10 hover:border-white transition justify-center items-center
+    @apply flex h-11 w-11 bg-[#2a2a2a]/60 border-[gray] border-2 rounded-full hover:bg-white/10 hover:border-white transition justify-center items-center
   }
 }
