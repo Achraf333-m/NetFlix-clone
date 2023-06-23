@@ -41,4 +41,10 @@
   .buttonModal {
     @apply flex h-11 w-11 bg-[#2a2a2a]/60 border-[gray] border-2 rounded-full hover:bg-white/10 hover:border-white transition justify-center items-center
   }
+  .container {
+    @apply py-4 space-y-4
+  }
+  .row {
+    @apply px-4 space-x-4
+  }
 }
