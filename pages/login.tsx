@@ -87,11 +87,10 @@ function Login() {
             </label>
           </div>
           <button
-            disabled={loading}
             type="submit"
             className="w-full rounded bg-[#e50914] py-3 font-semibold"
           >
-            {loading ? <Loader color="dark:fill-white" /> : "Sign In"}
+            Sign In
           </button>
         </form>
         <div className="text-[gray] py-4 px-3 ml-4">

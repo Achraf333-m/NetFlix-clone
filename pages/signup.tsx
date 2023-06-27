@@ -82,7 +82,7 @@ function signup() {
           type="submit"
           className="w-full rounded bg-[#e50914] py-3 font-semibold"
         >
-           {loading ? <Loader color="dark:fill-white" /> : "Go to Netflix!"}
+           Go to Netflix!
         </button>
       </form>
     </div>
