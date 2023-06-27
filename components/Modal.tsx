@@ -1,12 +1,34 @@
 import { modalState, movieState } from "@/states/State";
-import { Genre, Element } from "@/typings";
+import { Genre, Element, Movie } from "@/typings";
 import MuiModal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
-import { BsVolumeOff, BsVolumeUp } from "react-icons/bs";
+import { BsCheck2, BsVolumeOff, BsVolumeUp } from "react-icons/bs";
 import { FaPlay, FaPlus, FaThumbsUp, FaTimes } from "react-icons/fa";
 import { MdOutlineThumbsUpDown, MdThumbUp } from "react-icons/md";
 import ReactPlayer from "react-player";
 import { useRecoilState } from "recoil";
+import Loader from "./Loader";
+import {
+  DocumentData,
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  setDoc,
+} from "firebase/firestore";
+import useAuth from "@/hooks/useAuth";
+import { db } from "@/firebase";
+import toast, { Toaster } from "react-hot-toast";
+
+const toastCss = {
+  background: 'white',
+  color: 'black',
+  fontWeight: 'bold',
+  fontSize: '16px',
+  padding: '16px',
+  borderRadius: '9999px',
+  maxWidth: '7000px',
+}
 
 function Modal() {
   const [showModal, setShowModal] = useRecoilState(modalState);
@@ -16,10 +38,60 @@ function Modal() {
   const [loading, setLoading] = useState(true);
   const [muted, setMuted] = useState(true);
   const [liked, setLiked] = useState(false);
+  const [movies, setMovies] = useState<DocumentData[] | Movie[]>([]);
+  const [addedToList, setAddedToList] = useState(false);
+  const { user } = useAuth();
 
   const handleModal = () => {
     setShowModal(false);
   };
+
+  const handleList = async () => {
+    if (addedToList) {
+      await deleteDoc(
+        doc(db, "customers", user!.uid, "MyList", movie?.id.toString()!)
+      );
+
+      toast(
+        `${
+          movie?.title || movie?.original_name
+        } has been removed from My List!`,
+        {
+          duration: 4000,
+          style: toastCss
+        }
+      );
+    } else {
+      await setDoc(
+        doc(db, "customers", user!.uid, "MyList", movie?.id.toString()!),
+        { ...movie }
+      );
+      toast(
+        `${movie?.title || movie?.original_name} has been added to My List!`,
+        {
+          duration: 4000,
+          style: toastCss
+        }
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      return onSnapshot(
+        collection(db, "customers", user.uid, "MyList"),
+        (snapshot) => setMovies(snapshot.docs)
+      );
+    }
+  }, [db, movie?.id]);
+
+  useEffect(
+    () =>
+      setAddedToList(
+        movies.findIndex((result) => result.data().id === movie?.id) !== -1
+      ),
+    [movies]
+  );
 
   useEffect(() => {
     if (!movie) return;
@@ -51,7 +123,7 @@ function Modal() {
   }, [movie]);
 
   if (loading) {
-    return null;
+    return <Loader color="dark:fill-[#e50914]" />;
   }
 
   return (
@@ -61,6 +133,7 @@ function Modal() {
       className=" !top-10 !left-0 !right-0 !mx-auto rounded-md !max-w-4xl w-full overflow-hidden overflow-y-scroll scrollbar-hide z-50 "
     >
       <>
+        <Toaster position="bottom-center" />
         <button
           className="absolute buttonModal hover:bg-[#181818] top-5 right-5 bg-[#181818] !z-40 h-9 w-9 border-none"
           onClick={handleModal}
@@ -84,8 +157,12 @@ function Modal() {
                 <FaPlay className="w-4 h-4 text-black md:h-5 md:w-5" />
                 Play
               </button>
-              <button className="buttonModal">
-                <FaPlus className="h-5 w-5" />
+              <button className="buttonModal" onClick={handleList}>
+                {addedToList ? (
+                  <BsCheck2 className="h-6 w-6" />
+                ) : (
+                  <FaPlus className="h-5 w-5" />
+                )}
               </button>
               <button onClick={() => setLiked(!liked)} className="buttonModal">
                 {liked ? (
@@ -124,7 +201,7 @@ function Modal() {
               <div className="flex flex-col space-y-3 text-sm">
                 <div>
                   <span className="text-[gray]">Genres: </span>
-                  {genres?.map((genre) => genre.name).join(', ')}
+                  {genres?.map((genre) => genre.name).join(", ")}
                 </div>
 
                 <div>

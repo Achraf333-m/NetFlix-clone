@@ -2,10 +2,12 @@ import { Movie } from "@/typings";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import Thumbnail from "./Thumbnail";
 import { useRef, useState } from "react";
+import { DocumentData } from "firebase/firestore";
 
 interface props {
-  movies: Movie[];
+  movies: Movie[] | DocumentData[] | undefined;
   title: string;
+  
 }
 
 function Row({ movies, title }: props) {

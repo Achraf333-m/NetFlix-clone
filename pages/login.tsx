@@ -1,4 +1,6 @@
+import Loader from "@/components/Loader";
 import useAuth from "@/hooks/useAuth";
+import { User } from "firebase/auth";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -8,11 +10,12 @@ import { SubmitHandler, useForm } from "react-hook-form";
 interface Inputs {
   email: string;
   password: string;
+  user: User
 }
 
 function Login() {
   const [newlog, setNewLog] = useState(false);
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, loading } = useAuth();
   const router = useRouter();
 
   const {
@@ -20,18 +23,19 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
+  const onSubmit: SubmitHandler<Inputs> = async ({ email, password}) => {
     await signIn(email, password);
   };
 
   if (newlog) {
     router.push("/signup");
   }
-  
+
   return (
     <div className="relative overflow-hidden h-screen w-screen bg-black flex-col flex items-center justify-center sm:bg-transparent">
       <Head>
         <title>Login - Netflix</title>
+        <link rel="icon" href="./favicon.ico" />
       </Head>
 
       <img
@@ -83,21 +87,22 @@ function Login() {
             </label>
           </div>
           <button
+            disabled={loading}
             type="submit"
             className="w-full rounded bg-[#e50914] py-3 font-semibold"
           >
-            Sign In
+            {loading ? <Loader color="dark:fill-white" /> : "Sign In"}
           </button>
-
         </form>
-          <div className="text-[gray] py-4 px-3 ml-4">New to Netflix? {""}
-        <button
-          className="text-white hover:underline "
-          onClick={() => setNewLog(true)}
-        >
-          Sign up right now!
-        </button>
-          </div>
+        <div className="text-[gray] py-4 px-3 ml-4">
+          New to Netflix? {""}
+          <button
+            className="text-white hover:underline "
+            onClick={() => setNewLog(true)}
+          >
+            Sign up right now!
+          </button>
+        </div>
       </div>
     </div>
   );

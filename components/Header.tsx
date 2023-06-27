@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { FaBell } from "react-icons/fa";
 import Dropdown from "./Dropdown";
+import BMenu from "./Menu";
 
 function Header() {
 
@@ -37,6 +38,8 @@ function Header() {
           className="cursor-pointer object-contain"
         />
 
+        <BMenu />
+
         <ul className="hidden md:flex space-x-4">
           <li className="headerlink">Home</li>
           <li className="headerlink">Movies</li>
@@ -50,10 +53,7 @@ function Header() {
         <BsSearch className="h-6 w-6 hidden sm:inline" />
         <p className="hidden lg:inline cursor-default">Kids</p>
         <FaBell className="h-6 w-6 hidden" />
-        {/* <Link href="/account"> */}
-          
           <Dropdown />
-        {/* </Link> */}
       </div>
     </header>
   );

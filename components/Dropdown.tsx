@@ -1,5 +1,6 @@
 import useAuth from "@/hooks/useAuth";
 import { Menu, Transition } from "@headlessui/react";
+import { useRouter } from "next/router";
 import { Fragment } from "react";
 
 import { MdLogout } from "react-icons/md";
@@ -7,11 +8,9 @@ import { MdLogout } from "react-icons/md";
 
 export default function Dropdown() {
 
-    const {logOut, loading} = useAuth()
+    const {loading} = useAuth()
+    const router = useRouter()
 
-    async function logout() {
-        await logOut()
-    }
     if (loading) return null
 
   return (
@@ -42,10 +41,10 @@ export default function Dropdown() {
                   className={`${
                     active && "bg-white/10"
                   } group flex rounded-md items-center w-full px-2 py-2 text-sm font-semibold tracking-wide text-white cursor-default`}
-                  onClick={logout}
+                  onClick={() => router.push('/account')}
                 >
                   <MdLogout className="w-5 h-5 mr-2" aria-hidden="true" />
-                  Log out
+                  Account
                 </button>
               )}
             </Menu.Item>

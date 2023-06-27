@@ -29,12 +29,12 @@ function Thumbnail({ movie }: props) {
     <>
       {thumbnail ? (
         <>
-          <div onClick={() => {setCurrentMovie(movie) ; setShowModal(true)}} className="h-28 min-w-[180px] relative transition duration-200 cursor-pointer md:h-36 md:min-w-[260px] hover:scale-105 ">
+          <div onClick={() => {setCurrentMovie(movie) ; setShowModal(true)}} className="h-28 min-w-[180px] md:max-w-[180px] relative transition duration-200 cursor-pointer md:h-36 md:min-w-[260px] hover:scale-105 ">
             <img
               src={`https://image.tmdb.org/t/p/w500/${
                 movie.backdrop_path || movie.poster_path
               }`}
-              className="object-cover rounded-sm md:rounded"
+              className="object-cover rounded-lg md:rounded px-1 md:px-0"
               alt=""
             />
           </div>

@@ -3,6 +3,7 @@ import useAuth from "@/hooks/useAuth";
 import Image from "next/image";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import Loader from "@/components/Loader";
 
 interface Inputs {
   email: string;
@@ -26,6 +27,7 @@ function signup() {
     <div className="relative overflow-hidden h-screen w-screen bg-black flex-col flex items-center justify-center sm:bg-transparent">
       <Head>
         <title>Signup - Netflix</title>
+        <link rel="icon" href="./favicon.ico" />
       </Head>
 
       <img
@@ -80,7 +82,7 @@ function signup() {
           type="submit"
           className="w-full rounded bg-[#e50914] py-3 font-semibold"
         >
-            Go to Netflix!
+           {loading ? <Loader color="dark:fill-white" /> : "Go to Netflix!"}
         </button>
       </form>
     </div>
